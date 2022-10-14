@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ForwardAlgebraic.Effects.Abstractions\ForwardAlgebraic.Effects.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
