@@ -1,7 +1,7 @@
 using LanguageExt.Attributes;
 using LanguageExt.Effects.Traits;
 
-namespace ForwardAlgebraic.Effects.Abstractions;
+namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
 [Typeclass("*")]
 public interface HasEffectActor<RT> : HasCancel<RT>

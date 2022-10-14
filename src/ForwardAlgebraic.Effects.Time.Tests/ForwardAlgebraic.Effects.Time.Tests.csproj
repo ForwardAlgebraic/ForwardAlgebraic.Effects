@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForwardAlgebraic.Effects.Time\ForwardAlgebraic.Effects.Time.csproj" />
-    <ProjectReference Include="..\ForwardAlgebraic.Effects\ForwardAlgebraic.Effects.csproj" />
   </ItemGroup>
 
 </Project>

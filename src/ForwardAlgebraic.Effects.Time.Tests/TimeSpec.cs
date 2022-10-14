@@ -1,5 +1,4 @@
 using AutoFixture.Xunit2;
-using ForwardAlgebraic.Effects;
 using ForwardAlgebraic.Effects.Abstractions;
 using LanguageExt;
 using LanguageExt.UnitsOfMeasure;

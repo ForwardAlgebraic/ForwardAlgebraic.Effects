@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForwardAlgebraic.Effects.Actor\ForwardAlgebraic.Effects.Actor.csproj" />
-    <ProjectReference Include="..\ForwardAlgebraic.Effects\ForwardAlgebraic.Effects.csproj" />
   </ItemGroup>
 
 </Project>

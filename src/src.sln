@@ -8,17 +8,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.editorconfig = ..\.editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects", "ForwardAlgebraic.Effects\ForwardAlgebraic.Effects.csproj", "{7A1CBEEF-2B2C-4A59-828B-B1C10019B08C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Abstractions", "ForwardAlgebraic.Effects.Abstractions\ForwardAlgebraic.Effects.Abstractions.csproj", "{B162C2CF-E43E-44DF-8834-FC4E1F503351}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Time", "ForwardAlgebraic.Effects.Time\ForwardAlgebraic.Effects.Time.csproj", "{FB945B3D-8025-4404-BA52-27994FFFA14A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Time.Tests", "ForwardAlgebraic.Effects.Time.Tests\ForwardAlgebraic.Effects.Time.Tests.csproj", "{2C6B7C35-A44E-4EEA-985D-ADD4D085401D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Actor", "ForwardAlgebraic.Effects.Actor\ForwardAlgebraic.Effects.Actor.csproj", "{4CBEC45C-37D6-4329-95B7-217F1F3E767E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Actor", "ForwardAlgebraic.Effects.Actor\ForwardAlgebraic.Effects.Actor.csproj", "{4CBEC45C-37D6-4329-95B7-217F1F3E767E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Actor.Tests", "ForwardAlgebraic.Effects.Actor.Tests\ForwardAlgebraic.Effects.Actor.Tests.csproj", "{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Actor.Tests", "ForwardAlgebraic.Effects.Actor.Tests\ForwardAlgebraic.Effects.Actor.Tests.csproj", "{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Actor.Abstractions", "ForwardAlgebraic.Effects.Actor.Abstractions\ForwardAlgebraic.Effects.Actor.Abstractions.csproj", "{E4004127-8238-4788-AB06-7C161D24596A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A1CBEEF-2B2C-4A59-828B-B1C10019B08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A1CBEEF-2B2C-4A59-828B-B1C10019B08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A1CBEEF-2B2C-4A59-828B-B1C10019B08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A1CBEEF-2B2C-4A59-828B-B1C10019B08C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B162C2CF-E43E-44DF-8834-FC4E1F503351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B162C2CF-E43E-44DF-8834-FC4E1F503351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B162C2CF-E43E-44DF-8834-FC4E1F503351}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4004127-8238-4788-AB06-7C161D24596A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4004127-8238-4788-AB06-7C161D24596A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4004127-8238-4788-AB06-7C161D24596A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4004127-8238-4788-AB06-7C161D24596A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

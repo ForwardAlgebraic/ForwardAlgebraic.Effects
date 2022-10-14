@@ -1,4 +1,6 @@
-namespace ForwardAlgebraic.Effects.Abstractions;
+using LanguageExt;
+
+namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
 public interface IEffectSenderActor : IDisposable
 {

@@ -1,4 +1,5 @@
 using ForwardAlgebraic.Effects.Abstractions;
+using ForwardAlgebraic.Effects.Actor.Abstractions;
 using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Tests;
@@ -23,7 +24,7 @@ public class ActorSpec
 
         var q = Actor<RT>.RequestAff<bool>(pid.Address, pid.Id, "success");
         using var cts = new CancellationTokenSource();
-        using var actor = new EffectActor(system.Root);
+        using var actor = new EffectSenderActor(system.Root);
 
         var r = await q.Run(new(actor, cts));
 
@@ -53,7 +54,7 @@ public class ActorSpec
 
         var q = Actor<RT>.SendEff(pid.Address, pid.Id, "success");
         using var cts = new CancellationTokenSource();
-        using var actor = new EffectActor(system.Root);
+        using var actor = new EffectSenderActor(system.Root);
 
         var r = q.Run(new(actor, cts));
 

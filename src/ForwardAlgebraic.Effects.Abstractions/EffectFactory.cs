@@ -14,8 +14,7 @@ public class EffectFactory<TA> : IEffectFactory<TA>
     public TA Create(params object[] args) => Factory.Invoke();
 }
 
-public class EffectFactory<TA, TC> : IEffectFactory<TA>
-    where TC : TA
+public class EffectFactory<TA, TC> : IEffectFactory<TA> where TC : TA
 {
     public EffectFactory(IServiceProvider serviceProvider)
     {
