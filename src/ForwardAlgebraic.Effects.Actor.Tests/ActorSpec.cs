@@ -66,7 +66,7 @@ public class ActorSpec
         await system.DisposeAsync();
     }
 
-    public readonly record struct RT(in IEffectActor EffectActor,
+    public readonly record struct RT(in IEffectSenderActor EffectActor,
                                      CancellationTokenSource CancellationTokenSource) :
        HasEffectActor<RT>
     {

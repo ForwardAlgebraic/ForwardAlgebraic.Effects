@@ -3,14 +3,32 @@ using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor;
 
-public readonly record struct EffectActor(ISenderContext Context) : IEffectActor
+public interface IEffectSenderActorImpl: IEffectSenderActor
 {
-    public Unit Send(string address, string id, object msg)
+    ISenderContext Context { get; }
+
+    Unit IEffectSenderActor.Send(string address, string id, object msg)
     {
         Context.Send(PID.FromAddress(address, id), msg);
         return unit;
     }
 
-    public async ValueTask<T> RequestAsync<T>(string address, string id, object msg, CancellationToken ct) =>
+    async ValueTask<T> IEffectSenderActor.RequestAsync<T>(string address, string id, object msg, CancellationToken ct) =>
         await Context.RequestAsync<T>(PID.FromAddress(address, id), msg, ct);
 }
+
+public readonly record struct EffectSenderActor(ISenderContext Context) : IEffectSenderActorImpl
+{
+}
+
+public readonly record struct EffectActor(IContext Context) : IEffectSenderActorImpl
+{
+    ISenderContext IEffectSenderActorImpl.Context => Context;
+
+    public Unit Respond(object msg)
+    {
+        Context.Respond(msg);
+        return unit;
+    }
+}
+

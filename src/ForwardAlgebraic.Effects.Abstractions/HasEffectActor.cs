@@ -7,7 +7,7 @@ namespace ForwardAlgebraic.Effects.Abstractions;
 public interface HasEffectActor<RT> : HasCancel<RT>
     where RT : struct, HasEffectActor<RT>
 {
-    IEffectActor EffectActor { get; }
+    IEffectSenderActor EffectActor { get; }
 
-    Eff<RT, IEffectActor> Eff => Eff<RT, IEffectActor>(static rt => rt.EffectActor);
+    Eff<RT, IEffectSenderActor> Eff => Eff<RT, IEffectSenderActor>(static rt => rt.EffectActor);
 }

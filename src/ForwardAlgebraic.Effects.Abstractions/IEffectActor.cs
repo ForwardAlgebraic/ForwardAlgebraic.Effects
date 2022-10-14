@@ -1,6 +1,6 @@
 namespace ForwardAlgebraic.Effects.Abstractions;
 
-public interface IEffectActor : IDisposable
+public interface IEffectSenderActor : IDisposable
 {
     void IDisposable.Dispose() => GC.SuppressFinalize(this);
     Unit Send(string address, string id, object msg);
