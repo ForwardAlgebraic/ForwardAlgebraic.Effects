@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace ForwardAlgebraic.Effects.Abstractions;
 
 public interface IEffectTime : IDisposable

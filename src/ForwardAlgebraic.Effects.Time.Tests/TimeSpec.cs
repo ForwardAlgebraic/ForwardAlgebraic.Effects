@@ -1,3 +1,4 @@
+using AutoFixture.Xunit2;
 using ForwardAlgebraic.Effects;
 using ForwardAlgebraic.Effects.Abstractions;
 using LanguageExt;
@@ -9,11 +10,10 @@ namespace ForwardAlgebraic.Effects.Time.Tests;
 
 public class TimeSpec
 {
-    [Fact]
-    public void CaseNow()
+    [Theory, InlineAutoData]
+    public void CaseNow(DateTime now)
     {
-        var now = DateTime.Now;
-        var q = Time<RT>.Now;
+        var q = Time<RT>.NowEff;
 
         using var time = new EffectTimeForTest(now);
         using var cts = new CancellationTokenSource();
@@ -23,11 +23,9 @@ public class TimeSpec
         Assert.Equal(now, r.ThrowIfFail());
     }
 
-    [Fact]
-    public async Task CaseGenericHostNow()
+    [Theory, InlineAutoData]
+    public async Task CaseGenericHostNow(DateTime now, CancellationTokenSource cts)
     {
-        var now = DateTime.Now;
-
         var host = Host.CreateDefaultBuilder()
                        .UseEffectTime()
                        .UseEffectTime(() => new EffectTimeForTest(now))
@@ -35,9 +33,8 @@ public class TimeSpec
 
         await host.StartAsync();
 
-        var q = Time<RT>.Now;
+        var q = Time<RT>.NowEff;
 
-        using var cts = new CancellationTokenSource();
         using var time = host.Services.GetEffectFactory<IEffectTime>().Create();
 
         var r = q.Run(new(time, cts));
@@ -52,8 +49,7 @@ public class TimeSpec
                                      CancellationTokenSource CancellationTokenSource) :
         HasEffectTime<RT>
     {
-
-        public RT LocalCancel => this;
+        public RT LocalCancel => new(EffectTime, CancellationTokenSource.CreateLinkedTokenSource(CancellationToken));
         public CancellationToken CancellationToken => CancellationTokenSource.Token;
     }
 }

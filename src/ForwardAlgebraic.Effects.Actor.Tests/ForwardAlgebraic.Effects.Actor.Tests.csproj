@@ -9,9 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -25,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForwardAlgebraic.Effects.Time\ForwardAlgebraic.Effects.Time.csproj" />
+    <ProjectReference Include="..\ForwardAlgebraic.Effects.Actor\ForwardAlgebraic.Effects.Actor.csproj" />
     <ProjectReference Include="..\ForwardAlgebraic.Effects\ForwardAlgebraic.Effects.csproj" />
   </ItemGroup>
 
