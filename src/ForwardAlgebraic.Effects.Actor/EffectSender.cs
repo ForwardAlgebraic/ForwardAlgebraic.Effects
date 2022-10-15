@@ -3,8 +3,6 @@ using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor;
 
-public interface IMixinEffectActor : IEffectActor
+public readonly record struct EffectSender(ISenderContext Context) : IEffectSender 
 {
-    
 }
-

@@ -2,7 +2,6 @@ using ForwardAlgebraic.Effects.Actor.Abstractions;
 using LanguageExt;
 using LanguageExt.Pipes;
 using Proto;
-using static LanguageExt.Pipes.Proxy;
 
 namespace ForwardAlgebraic.Effects.Actor;
 

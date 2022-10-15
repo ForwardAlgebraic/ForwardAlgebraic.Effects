@@ -17,8 +17,6 @@ public class ActorSpec
             using var cts = new CancellationTokenSource();
             using var actor = new EffectActor(ctx);
 
-
-
             var r = await Business().Run(new(actor, actor, cts));
             _ = r.ThrowIfFail();
 
@@ -75,7 +73,7 @@ public class ActorSpec
             select _1 && _2;
 
         using var cts = new CancellationTokenSource();
-        using var actor = new EffectSenderActor(system.Root);
+        using var actor = new EffectSender(system.Root);
 
         var r = await q.Run(new(actor, cts));
 
@@ -105,7 +103,7 @@ public class ActorSpec
 
         var q = Sender<RT1>.SendEff(pid.Address, pid.Id, "success");
         using var cts = new CancellationTokenSource();
-        using var sender = new EffectSenderActor(system.Root);
+        using var sender = new EffectSender(system.Root);
 
         var r = q.Run(new(sender, cts));
 
