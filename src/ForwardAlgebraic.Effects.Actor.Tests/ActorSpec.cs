@@ -1,8 +1,6 @@
 using ForwardAlgebraic.Effects.Abstractions;
 using ForwardAlgebraic.Effects.Actor.Abstractions;
-using Google.Protobuf;
 using Proto;
-using Proto.Future;
 
 namespace ForwardAlgebraic.Effects.Actor.Tests;
 
@@ -19,10 +17,10 @@ public class ActorSpec
             using var cts = new CancellationTokenSource();
             using var actor = new EffectActor(ctx);
 
-            
+
 
             var r = await Business().Run(new(actor, actor, cts));
-            r.ThrowIfFail();
+            _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
                 from __ in unitAff
@@ -55,7 +53,7 @@ public class ActorSpec
             using var actor = new EffectActor(ctx);
 
             var r = await Business().Run(new(actor, actor, cts));
-            r.ThrowIfFail();
+            _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
                 from __ in unitAff
@@ -111,9 +109,9 @@ public class ActorSpec
 
         var r = q.Run(new(sender, cts));
 
-        r.ThrowIfFail();
+        _ = r.ThrowIfFail();
 
-        ev.Wait(5000);
+        _ = ev.Wait(5000);
 
         Assert.Equal("success", ret);
 
