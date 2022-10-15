@@ -1,10 +1,29 @@
-using LanguageExt;
+using ForwardAlgebraic.Effects.Abstractions;
+using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
-public interface IEffectSenderActor : IDisposable
+public interface IEffectActor : IMixinDisposable
 {
-    void IDisposable.Dispose() => GC.SuppressFinalize(this);
-    Unit Send(string address, string id, object msg);
-    ValueTask<T> RequestAsync<T>(string address, string id, object msg, CancellationToken ct);
+    IContext Context { get; }
+
+    Unit Respond(object msg)
+    {
+        Context.Respond(msg);
+        return unit;
+    }
+
+    object? ReceiveMessage => Context.Message;
+
+    Unit SetTimeout(TimeSpan timeout)
+    {
+        Context.SetReceiveTimeout(timeout);
+        return unit;
+    }
+
+    Unit PoisonSelf()
+    {
+        Context.Poison(Context.Self);
+        return unit;
+    }
 }
