@@ -1,5 +1,6 @@
 using ForwardAlgebraic.Effects.Abstractions;
 using ForwardAlgebraic.Effects.Actor.Abstractions;
+using LanguageExt.Effects.Traits;
 using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Tests;
@@ -15,9 +16,8 @@ public class ActorSpec
         var props = Props.FromFunc(async ctx =>
         {
             using var cts = new CancellationTokenSource();
-            using var actor = new EffectActor(ctx);
 
-            var r = await Business().Run(new(actor, actor, cts));
+            var r = await Business().Run(new(ctx, cts));
             _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
@@ -48,14 +48,13 @@ public class ActorSpec
         var props = Props.FromFunc(async ctx =>
         {
             using var cts = new CancellationTokenSource();
-            using var actor = new EffectActor(ctx);
 
-            var r = await Business().Run(new(actor, actor, cts));
+            var r = await Business().Run(new(ctx, cts));
             _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
                 from __ in unitAff
-                from _1 in Sender<RT2>.SendEff(ActorSystem.NoHost, "1", "1")
+                from _1 in Sender<RT2>.SendEff(PID.FromAddress(ActorSystem.NoHost, "1"), "1")
                 from _2 in Actor<RT2>.HandlerAff<string>(static m =>
                     Actor<RT2>.RespondEff(m == "success")
                 )
@@ -68,14 +67,12 @@ public class ActorSpec
         var pid = system.Root.Spawn(props);
 
         var q =
-            from _1 in Sender<RT1>.RequestAff<bool>(pid.Address, pid.Id, "success")
-            from _2 in Sender<RT1>.RequestAff<bool>(pid.Address, pid.Id, 1)
+            from _1 in Sender<RT1>.RequestAff<bool>(pid, "success")
+            from _2 in Sender<RT1>.RequestAff<bool>(pid, 1)
             select _1 && _2;
 
         using var cts = new CancellationTokenSource();
-        using var actor = new EffectSender(system.Root);
-
-        var r = await q.Run(new(actor, cts));
+        var r = await q.Run(new(system.Root, cts));
 
         Assert.True(r.ThrowIfFail());
 
@@ -101,11 +98,10 @@ public class ActorSpec
 
         var pid = system.Root.Spawn(props);
 
-        var q = Sender<RT1>.SendEff(pid.Address, pid.Id, "success");
+        var q = Sender<RT1>.SendEff(pid, "success");
         using var cts = new CancellationTokenSource();
-        using var sender = new EffectSender(system.Root);
 
-        var r = q.Run(new(sender, cts));
+        var r = q.Run(new(system.Root, cts));
 
         _ = r.ThrowIfFail();
 
@@ -116,12 +112,14 @@ public class ActorSpec
         await system.DisposeAsync();
     }
 
-    public readonly record struct RT1(in IEffectSender EffectSender,
+    public readonly record struct RT1(in ISenderContext SenderContext,
                                       CancellationTokenSource CancellationTokenSource)
         : HasEffectCancel<RT1>, HasEffectSender<RT1>;
 
-    public readonly record struct RT2(in IEffectActor EffectActor,
-                                      in IEffectSender EffectSender,
+    public readonly record struct RT2(in IContext Context,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT2>, HasEffectActor<RT2>, HasEffectSender<RT2>;
+        : HasEffectCancel<RT2>, HasEffectActor<RT2>, HasEffectSender<RT2>
+    {
+        ISenderContext HasEffectSender<RT2>.SenderContext => Context;
+    }
 }

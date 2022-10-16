@@ -1,5 +1,6 @@
 using LanguageExt.Attributes;
 using LanguageExt.Effects.Traits;
+using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
@@ -7,7 +8,7 @@ namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 public interface HasEffectSender<RT> : HasCancel<RT>
     where RT : struct, HasEffectSender<RT>
 {
-    protected IEffectSender EffectSender { get; }
+    protected ISenderContext SenderContext { get; }
 
-    Eff<RT, IEffectSender> Eff => Eff<RT, IEffectSender>(static rt => rt.EffectSender);
+    Eff<RT, ISenderContext> SenderEff => Eff<RT, ISenderContext>(static rt => rt.SenderContext);
 }

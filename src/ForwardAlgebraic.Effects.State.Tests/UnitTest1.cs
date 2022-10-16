@@ -9,14 +9,7 @@ public class StateSpec
     [Fact]
     public void CaseValueType()
     {
-        RWSState<>
-        int a = 1;
-
-
-        static Aff<RT, int> business() =>
-            from __ in unitEff
-            from _1 in State<RT, int>.Set()
-            select State<RT, int>.Get();
+      
     }
 
     public readonly record struct RT(IEffectState<int> EffectState,

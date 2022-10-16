@@ -1,5 +1,6 @@
-﻿using LanguageExt.Attributes;
+using LanguageExt.Attributes;
 using LanguageExt.Effects.Traits;
+using Proto.Cluster;
 
 namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
@@ -7,7 +8,7 @@ namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 public interface HasEffectCluster<RT> : HasCancel<RT>
     where RT : struct, HasEffectCluster<RT>
 {
-    protected IEffectCluster EffectCluster { get; }
+    protected Cluster Cluster { get; }
 
-    Eff<RT, IEffectCluster> Eff => Eff<RT, IEffectCluster>(static rt => rt.EffectCluster);
+    Eff<RT, Cluster> ClusterEff => Eff<RT, Cluster>(static rt => rt.Cluster);
 }

@@ -32,10 +32,9 @@ public class ClusterSpec
         await cluster.StartMemberAsync();
 
         using var cts = new CancellationTokenSource();
-        using var eff = new EffectCluster(system.Root);
 
         var q = Cluster<RT>.RequestAff<bool>("1", "HelloGrain", "What!!");
-        var r = await q.Run(new(eff, cts));
+        var r = await q.Run(new(cluster, cts));
 
         Assert.True(r.ThrowIfFail());
 
@@ -43,7 +42,7 @@ public class ClusterSpec
 
 
     }
-    public readonly record struct RT(in IEffectCluster EffectCluster,
+    public readonly record struct RT(in Cluster Cluster,
                                      CancellationTokenSource CancellationTokenSource)
         : HasEffectCancel<RT>, HasEffectCluster<RT>;
 

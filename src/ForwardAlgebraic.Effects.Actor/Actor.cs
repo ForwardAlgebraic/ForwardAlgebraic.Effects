@@ -8,12 +8,12 @@ namespace ForwardAlgebraic.Effects.Actor;
 public static class Actor<RT> where RT : struct, HasEffectActor<RT>
 {
     public static Eff<RT, Unit> RespondEff(object msg) =>
-        from actor in default(RT).Eff
-        select actor.Respond(msg);
+        from actor in default(RT).ActorEff
+        select actor.RespondToUnit(msg);
 
     public static Aff<RT, Unit> HandlerAff<T>(Func<T, Aff<RT, Unit>> handleAff) =>
-        from actor in default(RT).Eff
-        let m = actor.ReceiveMessage
+        from actor in default(RT).ActorEff
+        let m = actor.Message
         from _ in m switch
         {
             T a => handleAff(a),
@@ -22,12 +22,12 @@ public static class Actor<RT> where RT : struct, HasEffectActor<RT>
         select unit;
 
     public static Aff<RT, Unit> SetTimeoutAff(TimeSpan timeout) =>
-        from actor in default(RT).Eff
+        from actor in default(RT).ActorEff
         from _1 in HandlerAff<Started>(m =>
-            Eff<RT, Unit>(rt => actor.SetTimeout(timeout))
+            Eff<RT, Unit>(rt => actor.SetReceiveTimeoutToUnit(timeout))
         )
         from _2 in HandlerAff<ReceiveTimeout>(m =>
-            Eff<RT, Unit>(rt => actor.PoisonSelf())
+            Eff<RT, Unit>(rt => actor.PoisonToUnit(actor.Self))
         )
         select unit;
 }

@@ -1,5 +1,4 @@
 using ForwardAlgebraic.Effects.Abstractions;
-using Proto;
 
 namespace ForwardAlgebraic.Effects.State.Abstractions;
 
