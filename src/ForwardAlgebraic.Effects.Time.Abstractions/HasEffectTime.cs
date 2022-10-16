@@ -6,10 +6,10 @@ using LanguageExt.Effects.Traits;
 namespace ForwardAlgebraic.Effects.Abstractions;
 
 [Typeclass("*")]
-public interface HasEffectTime<RT> : HasCancel<RT>
+public interface HasEffectTime<RT> 
     where RT : struct, HasEffectTime<RT>
 {
-    IEffectTime EffectTime { get; }
+    protected DateTime Now => DateTime.Now;
 
-    Eff<RT, IEffectTime> Eff => Eff<RT, IEffectTime>(static rt => rt.EffectTime);
+    Eff<RT, DateTime> TimeEff => Eff<RT, DateTime>(static rt => rt.Now);
 }

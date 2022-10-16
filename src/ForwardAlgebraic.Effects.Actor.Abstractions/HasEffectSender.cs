@@ -5,8 +5,7 @@ using Proto;
 namespace ForwardAlgebraic.Effects.Actor.Abstractions;
 
 [Typeclass("*")]
-public interface HasEffectSender<RT> : HasCancel<RT>
-    where RT : struct, HasEffectSender<RT>
+public interface HasEffectSender<RT> where RT : struct, HasEffectSender<RT>
 {
     protected ISenderContext SenderContext { get; }
 

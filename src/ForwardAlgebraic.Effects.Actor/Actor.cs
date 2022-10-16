@@ -9,7 +9,7 @@ public static class Actor<RT> where RT : struct, HasEffectActor<RT>
 {
     public static Eff<RT, Unit> RespondEff(object msg) =>
         from actor in default(RT).ActorEff
-        select actor.RespondToUnit(msg);
+        select fun(() => actor.Respond(msg))();
 
     public static Aff<RT, Unit> HandlerAff<T>(Func<T, Aff<RT, Unit>> handleAff) =>
         from actor in default(RT).ActorEff
@@ -24,10 +24,10 @@ public static class Actor<RT> where RT : struct, HasEffectActor<RT>
     public static Aff<RT, Unit> SetTimeoutAff(TimeSpan timeout) =>
         from actor in default(RT).ActorEff
         from _1 in HandlerAff<Started>(m =>
-            Eff<RT, Unit>(rt => actor.SetReceiveTimeoutToUnit(timeout))
+            Eff<RT, Unit>(rt => fun(() => actor.SetReceiveTimeout(timeout))())
         )
         from _2 in HandlerAff<ReceiveTimeout>(m =>
-            Eff<RT, Unit>(rt => actor.PoisonToUnit(actor.Self))
+            Eff<RT, Unit>(rt => fun(() => actor.Poison(actor.Self))())
         )
         select unit;
 }

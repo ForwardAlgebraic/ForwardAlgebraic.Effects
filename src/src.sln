@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Ht
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Http.Tests", "ForwardAlgebraic.Effects.Http.Tests\ForwardAlgebraic.Effects.Http.Tests.csproj", "{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardAlgebraic.Effects.Time.Abstractions", "ForwardAlgebraic.Effects.Time.Abstractions\ForwardAlgebraic.Effects.Time.Abstractions.csproj", "{81D6098D-8216-4D82-BC36-10C102255D4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D6098D-8216-4D82-BC36-10C102255D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D6098D-8216-4D82-BC36-10C102255D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D6098D-8216-4D82-BC36-10C102255D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D6098D-8216-4D82-BC36-10C102255D4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

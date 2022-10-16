@@ -1,6 +1,5 @@
 using ForwardAlgebraic.Effects.Abstractions;
 using ForwardAlgebraic.Effects.Actor.Abstractions;
-using LanguageExt.Effects.Traits;
 using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Tests;
@@ -10,7 +9,7 @@ public class ActorSpec
     [Fact]
     public async Task TimeoutEff()
     {
-        var system = new ActorSystem();
+        await using var system = new ActorSystem();
         var ev = new ManualResetEventSlim();
 
         var props = Props.FromFunc(async ctx =>
@@ -36,14 +35,12 @@ public class ActorSpec
         }));
 
         Assert.True(ev.Wait(10000));
-
-        await system.DisposeAsync();
     }
 
     [Fact]
     public async Task RequestAff()
     {
-        var system = new ActorSystem();
+        await using var system = new ActorSystem();
 
         var props = Props.FromFunc(async ctx =>
         {
@@ -75,15 +72,13 @@ public class ActorSpec
         var r = await q.Run(new(system.Root, cts));
 
         Assert.True(r.ThrowIfFail());
-
-        await system.DisposeAsync();
     }
 
     [Fact]
     public async Task SendAff()
     {
         var ev = new ManualResetEventSlim();
-        var system = new ActorSystem();
+        await using var system = new ActorSystem();
         var ret = "fail";
 
         var props = Props.FromFunc(ctx => ctx.Message switch
@@ -108,8 +103,6 @@ public class ActorSpec
         _ = ev.Wait(5000);
 
         Assert.Equal("success", ret);
-
-        await system.DisposeAsync();
     }
 
     public readonly record struct RT1(in ISenderContext SenderContext,

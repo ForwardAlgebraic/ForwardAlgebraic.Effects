@@ -14,29 +14,24 @@ public class TimeSpec
     {
         var q = Time<RT>.NowEff;
 
-        using var time = new EffectTimeForTest(now);
         using var cts = new CancellationTokenSource();
 
-        var r = q.Run(new(time, cts));
+        var r = q.Run(new(now));
 
         Assert.Equal(now, r.ThrowIfFail());
     }
 
     [Theory, InlineAutoData]
-    public async Task CaseGenericHostNow(DateTime now, CancellationTokenSource cts)
+    public async Task CaseGenericHostNow(DateTime now)
     {
         var host = Host.CreateDefaultBuilder()
-                       .UseEffectTime()
-                       .UseEffectTime(() => new EffectTimeForTest(now))
                        .Build();
 
         await host.StartAsync();
 
         var q = Time<RT>.NowEff;
 
-        using var time = host.Services.GetEffectFactory<IEffectTime>().Create();
-
-        var r = q.Run(new(time, cts));
+        var r = q.Run(new(now));
 
         Assert.Equal(now, r.ThrowIfFail());
 
@@ -44,11 +39,8 @@ public class TimeSpec
     }
 
 
-    public readonly record struct RT(in IEffectTime EffectTime,
-                                     CancellationTokenSource CancellationTokenSource) :
+    public readonly record struct RT(DateTime Now) :
         HasEffectTime<RT>
     {
-        public RT LocalCancel => new(EffectTime, CancellationTokenSource.CreateLinkedTokenSource(CancellationToken));
-        public CancellationToken CancellationToken => CancellationTokenSource.Token;
     }
 }

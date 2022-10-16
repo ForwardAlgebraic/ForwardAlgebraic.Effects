@@ -1,15 +1,16 @@
 using ForwardAlgebraic.Effects.Abstractions;
 using ForwardAlgebraic.Effects.Actor.Abstractions;
 using LanguageExt;
+using LanguageExt.Effects.Traits;
 using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor;
 
-public static class Sender<RT> where RT : struct, HasEffectSender<RT>
+public static class Sender<RT> where RT : struct, HasCancel<RT>, HasEffectSender<RT>
 {
     public static Eff<RT, Unit> SendEff(PID pid, object msg) =>
         from sender in default(RT).SenderEff
-        select sender.SendToUnit(pid, msg);
+        select fun(() => sender.Send(pid, msg))();
 
     public static Aff<RT, T> RequestAff<T>(PID pid, object msg) =>
         from sender in default(RT).SenderEff
