@@ -20,11 +20,10 @@ public class UnitTest1
             BaseAddress = new Uri("https://postman-echo.com/")
         };
 
-        var q = from _1 in Http<RT>.PostAff<TestResponse>("post", new
-                {
-                    Hello = "World"
-                })
-                select _1;
+        var q = Http<RT>.PostAff<TestResponse>("post", new
+        {
+            Hello = "World"
+        });
 
         using var cts = new CancellationTokenSource();
         var r = await q.Run(new RT(httpClient, cts));
