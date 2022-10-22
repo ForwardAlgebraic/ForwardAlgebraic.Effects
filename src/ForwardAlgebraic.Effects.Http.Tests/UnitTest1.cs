@@ -9,7 +9,7 @@ namespace ForwardAlgebraic.Effects.Http.Tests;
 
 
 
-public class UnitTest1
+public class PostSpec
 {
     private record TestResponse(string Hello);
 
