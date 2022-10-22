@@ -1,9 +1,5 @@
-using System.Net.Http.Json;
-using System.Text.Json;
 using ForwardAlgebraic.Effects.Abstractions;
-using LanguageExt;
-using LanguageExt.Pipes;
-using Microsoft.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -15,7 +11,7 @@ namespace ForwardAlgebraic.Effects.Http.Tests;
 
 public class UnitTest1
 {
-    record TestResponse(string Hello);
+    private record TestResponse(string Hello);
 
     [Fact]
     public async Task Test1()
@@ -51,10 +47,12 @@ public class UnitTest1
                                    }));
 
         
-        var httpClient = new HttpClient
-        {
-            BaseAddress = new Uri(server.Url)
-        };
+        var host = Host.CreateDefaultBuilder()
+                       .ConfigureServices((ctx, services) => 
+                            services.AddHttpClient("stub", c => c.BaseAddress = new Uri(server.Url)))
+                       .Build();
+
+        await host.StartAsync();
 
         var q = Http<RT>.PostAff<TestResponse>("post", new
         {
@@ -62,14 +60,14 @@ public class UnitTest1
         });
 
         using var cts = new CancellationTokenSource();
-        var r = await q.Run(new RT(httpClient, cts));
+        using var http = host.Services.GetRequiredService<IHttpClientFactory>().CreateClient("stub");
+        var r = await q.Run(new(http, cts));
 
-        Assert.True(r.ThrowIfFail() is { Hello: "World" }) ;
+        Assert.True(r.ThrowIfFail() is { Hello: "World" });
     }
 
-    public readonly record struct RT(HttpClient It, CancellationTokenSource CancellationTokenSource) :
+    public readonly record struct RT(HttpClient It,
+                                     CancellationTokenSource CancellationTokenSource) :
         HasEffectCancel<RT>,
-        Has<HttpClient>
-    {
-    }
+        Has<HttpClient>;
 }
