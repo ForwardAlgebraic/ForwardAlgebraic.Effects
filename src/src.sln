@@ -18,12 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Actor.Tests", "ForwardAlgebraic.Effects.Actor.Tests\ForwardAlgebraic.Effects.Actor.Tests.csproj", "{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.State", "ForwardAlgebraic.Effects.State\ForwardAlgebraic.Effects.State.csproj", "{CC77EDBC-0331-48E4-AAAF-3CE14F95994F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.State.Abstractions", "ForwardAlgebraic.Effects.State.Abstractions\ForwardAlgebraic.Effects.State.Abstractions.csproj", "{C6734A65-043C-475E-A6CC-9CB17747DEBA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.State.Tests", "ForwardAlgebraic.Effects.State.Tests\ForwardAlgebraic.Effects.State.Tests.csproj", "{7DA4D8E0-4279-4782-AA38-AA8F1F763FBD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Http", "ForwardAlgebraic.Effects.Http\ForwardAlgebraic.Effects.Http.csproj", "{F5BE35E0-3BE0-4411-94C5-9689020B9172}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Http.Tests", "ForwardAlgebraic.Effects.Http.Tests\ForwardAlgebraic.Effects.Http.Tests.csproj", "{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}"
@@ -54,18 +48,6 @@ Global
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC77EDBC-0331-48E4-AAAF-3CE14F95994F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC77EDBC-0331-48E4-AAAF-3CE14F95994F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC77EDBC-0331-48E4-AAAF-3CE14F95994F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC77EDBC-0331-48E4-AAAF-3CE14F95994F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6734A65-043C-475E-A6CC-9CB17747DEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6734A65-043C-475E-A6CC-9CB17747DEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6734A65-043C-475E-A6CC-9CB17747DEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6734A65-043C-475E-A6CC-9CB17747DEBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7DA4D8E0-4279-4782-AA38-AA8F1F763FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DA4D8E0-4279-4782-AA38-AA8F1F763FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DA4D8E0-4279-4782-AA38-AA8F1F763FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DA4D8E0-4279-4782-AA38-AA8F1F763FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5BE35E0-3BE0-4411-94C5-9689020B9172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5BE35E0-3BE0-4411-94C5-9689020B9172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5BE35E0-3BE0-4411-94C5-9689020B9172}.Release|Any CPU.ActiveCfg = Release|Any CPU
