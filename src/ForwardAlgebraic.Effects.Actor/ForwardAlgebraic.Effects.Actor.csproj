@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForwardAlgebraic.Effects.Abstractions\ForwardAlgebraic.Effects.Abstractions.csproj" />
-    <ProjectReference Include="..\ForwardAlgebraic.Effects.Actor.Abstractions\ForwardAlgebraic.Effects.Actor.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

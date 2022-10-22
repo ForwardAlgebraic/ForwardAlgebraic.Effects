@@ -1,5 +1,4 @@
 using ForwardAlgebraic.Effects.Abstractions;
-using ForwardAlgebraic.Effects.Actor.Abstractions;
 using Proto;
 
 namespace ForwardAlgebraic.Effects.Actor.Tests;
@@ -105,14 +104,14 @@ public class ActorSpec
         Assert.Equal("success", ret);
     }
 
-    public readonly record struct RT1(in ISenderContext SenderContext,
+    public readonly record struct RT1(in ISenderContext It,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT1>, HasEffectSender<RT1>;
+        : HasEffectCancel<RT1>, Has<ISenderContext>;
 
-    public readonly record struct RT2(in IContext Context,
+    public readonly record struct RT2(in IContext It,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT2>, HasEffectActor<RT2>, HasEffectSender<RT2>
+        : HasEffectCancel<RT2>, Has<IContext>, Has<ISenderContext>
     {
-        ISenderContext HasEffectSender<RT2>.SenderContext => Context;
+        ISenderContext Has<ISenderContext>.It => It;
     }
 }
