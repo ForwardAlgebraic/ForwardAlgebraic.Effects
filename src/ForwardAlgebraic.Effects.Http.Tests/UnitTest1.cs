@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ForwardAlgebraic.Effects.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -7,11 +9,23 @@ using WireMock.Server;
 
 namespace ForwardAlgebraic.Effects.Http.Tests;
 
+record DataContext(string Hello);
 
+record HeadersContext
+{
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> Extensions { get; init; } = new();
+}
+
+record PostmanResponse
+(
+    DataContext Data,
+    HeadersContext Headers
+);
 
 public class PostSpec
 {
-    private record TestResponse(string Hello);
+    
 
     [Fact]
     public async Task Test1()
@@ -21,16 +35,23 @@ public class PostSpec
             BaseAddress = new Uri("https://postman-echo.com/")
         };
 
-        var q = Http<RT>.PostAff<dynamic>("post", new
-        {
-            Hello = "World"
-        });
+        var q = from _1 in Http<RT>.AddHeaderEff("a", "b")
+                from _2 in Http<RT>.AddHeaderEff("a", "c")
+                from _3 in Http<RT>.PostAff<PostmanResponse>("post", new
+                {
+                    Hello = "World"
+                })
+                select _3;
 
         using var cts = new CancellationTokenSource();
-        var r = await q.Run(new RT(httpClient, cts));
+        var r = (await q.Run(new(httpClient, cts))).ThrowIfFail();
 
-        var x = r.ThrowIfFail();
+        Assert.Equal("World", r.Data.Hello);
+        Assert.Equal("b, c", r.Headers.Extensions["a"].ToString());
     }
+
+
+    private record TestResponse(string Hello);
 
     [Fact]
     public async Task Test2()
@@ -54,10 +75,12 @@ public class PostSpec
 
         await host.StartAsync();
 
-        var q = Http<RT>.PostAff<TestResponse>("post", new
-        {
-            Hello = "World"
-        });
+        var q = from _1 in Http<RT>.AddHeaderEff("a", "b")
+                from _2 in Http<RT>.PostAff<TestResponse>("post", new
+                {
+                    Hello = "World"
+                })
+                select _2;
 
         using var cts = new CancellationTokenSource();
         using var http = host.Services.GetRequiredService<IHttpClientFactory>().CreateClient("stub");
