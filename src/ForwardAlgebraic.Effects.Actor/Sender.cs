@@ -4,7 +4,7 @@ using Proto;
 
 namespace Algebraic.Effect.Actor;
 
-public interface Sender<RT> : Has<RT, ISenderContext>
+public interface ISender<RT> : Has<RT, ISenderContext>
     where RT : struct, HasCancel<RT>, Has<RT, ISenderContext>
 {
     public static Eff<RT, Unit> SendEff(PID pid, object msg) =>

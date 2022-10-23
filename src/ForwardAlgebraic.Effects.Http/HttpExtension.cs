@@ -7,7 +7,8 @@ using static LanguageExt.Prelude;
 
 namespace Algebraic.Effect.Http;
 
-public class Http<RT> where RT : struct, Has<RT, HttpClient>
+public interface IHttp<RT> : Has<RT, HttpClient>
+    where RT : struct, Has<RT, HttpClient>
 {
     public static JsonSerializerOptions JsonSerializerOptions { get; } = new()
     {

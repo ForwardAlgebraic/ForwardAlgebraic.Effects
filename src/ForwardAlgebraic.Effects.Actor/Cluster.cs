@@ -6,7 +6,8 @@ using Proto.Cluster;
 
 namespace Algebraic.Effect.Actor;
 
-public interface Cluster<RT> where RT : struct, HasCancel<RT>, Has<RT, Cluster>
+public interface ICluster<RT> : Has<RT, Cluster>
+    where RT : struct, HasCancel<RT>, Has<RT, Cluster>
 {
     public static Aff<RT, T> RequestAff<T>(string identity, string kind, object msg) =>
         RequestAff<T>(ClusterIdentity.Create(identity, kind), msg);

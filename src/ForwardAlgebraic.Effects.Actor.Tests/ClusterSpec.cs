@@ -33,15 +33,14 @@ public class ClusterSpec
 
         using var cts = new CancellationTokenSource();
 
-        var q = Cluster<RT>.RequestAff<bool>("1", "HelloGrain", "What!!");
+        var q = ICluster<RT>.RequestAff<bool>("1", "HelloGrain", "What!!");
         var r = await q.Run(new(cluster, cts));
 
         Assert.True(r.ThrowIfFail());
 
         await cluster.ShutdownAsync();
-
-
     }
+
     public readonly record struct RT(in Cluster It,
                                      CancellationTokenSource CancellationTokenSource)
         : HasEffectCancel<RT>, Has<RT, Cluster>;
