@@ -1,10 +1,10 @@
-using ForwardAlgebraic.Effects.Abstractions;
+using Algebraic.Effect.Abstractions;
 using LanguageExt.Effects.Traits;
 using Proto;
 
-namespace ForwardAlgebraic.Effects.Actor;
+namespace Algebraic.Effect.Actor;
 
-public static class Sender<RT> where RT : struct, HasCancel<RT>, Has<ISenderContext>
+public interface Sender<RT> where RT : struct, HasCancel<RT>, Has<RT, ISenderContext>
 {
     public static Eff<RT, Unit> SendEff(PID pid, object msg) =>
         from sender in Has<RT, ISenderContext>.Eff

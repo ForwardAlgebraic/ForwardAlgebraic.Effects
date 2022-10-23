@@ -8,19 +8,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.editorconfig = ..\.editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Abstractions", "ForwardAlgebraic.Effects.Abstractions\ForwardAlgebraic.Effects.Abstractions.csproj", "{B162C2CF-E43E-44DF-8834-FC4E1F503351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Abstractions", "ForwardAlgebraic.Effects.Abstractions\Algebraic.Effect.Abstractions.csproj", "{B162C2CF-E43E-44DF-8834-FC4E1F503351}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Time", "ForwardAlgebraic.Effects.Time\ForwardAlgebraic.Effects.Time.csproj", "{FB945B3D-8025-4404-BA52-27994FFFA14A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Time", "ForwardAlgebraic.Effects.Time\Algebraic.Effect.Time.csproj", "{FB945B3D-8025-4404-BA52-27994FFFA14A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Time.Tests", "ForwardAlgebraic.Effects.Time.Tests\ForwardAlgebraic.Effects.Time.Tests.csproj", "{2C6B7C35-A44E-4EEA-985D-ADD4D085401D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Time.Tests", "ForwardAlgebraic.Effects.Time.Tests\Algebraic.Effect.Time.Tests.csproj", "{2C6B7C35-A44E-4EEA-985D-ADD4D085401D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Actor", "ForwardAlgebraic.Effects.Actor\ForwardAlgebraic.Effects.Actor.csproj", "{4CBEC45C-37D6-4329-95B7-217F1F3E767E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Actor", "ForwardAlgebraic.Effects.Actor\Algebraic.Effect.Actor.csproj", "{4CBEC45C-37D6-4329-95B7-217F1F3E767E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Actor.Tests", "ForwardAlgebraic.Effects.Actor.Tests\ForwardAlgebraic.Effects.Actor.Tests.csproj", "{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Actor.Tests", "ForwardAlgebraic.Effects.Actor.Tests\Algebraic.Effect.Actor.Tests.csproj", "{4A803230-5299-4BAE-BE0C-2AC9D2FE1580}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Http", "ForwardAlgebraic.Effects.Http\ForwardAlgebraic.Effects.Http.csproj", "{F5BE35E0-3BE0-4411-94C5-9689020B9172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Http", "ForwardAlgebraic.Effects.Http\Algebraic.Effect.Http.csproj", "{F5BE35E0-3BE0-4411-94C5-9689020B9172}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForwardAlgebraic.Effects.Http.Tests", "ForwardAlgebraic.Effects.Http.Tests\ForwardAlgebraic.Effects.Http.Tests.csproj", "{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algebraic.Effect.Http.Tests", "ForwardAlgebraic.Effects.Http.Tests\Algebraic.Effect.Http.Tests.csproj", "{CF46A184-D115-4A4B-8C23-EE02DC8E0CFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

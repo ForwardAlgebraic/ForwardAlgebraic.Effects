@@ -1,11 +1,11 @@
-using ForwardAlgebraic.Effects.Abstractions;
+using Algebraic.Effect.Abstractions;
 using LanguageExt.Effects.Traits;
 using LanguageExt.Pipes;
 using Proto;
 
-namespace ForwardAlgebraic.Effects.Actor;
+namespace Algebraic.Effect.Actor;
 
-public static class Actor<RT> where RT : struct, HasCancel<RT>, Has<IContext>
+public interface Actor<RT> where RT : struct, HasCancel<RT>, Has<RT, IContext>
 {
     public static Eff<RT, Unit> RespondEff(object msg) =>
         from actor in Has<RT, IContext>.Eff

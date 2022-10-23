@@ -2,6 +2,7 @@
   <PropertyGroup>
     <Copyright>Copyright © 2020-2021 </Copyright>
     <Authors>Seungyong Shim</Authors>
+    <LangVersion>preview</LangVersion>
     <Version>9999.0.0.000</Version>
     <PackageProjectUrl>https://github.com/seungyongshim/ModificationHere</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/seungyongshim/ModificationHere/blob/master/LICENSE</PackageLicenseUrl>

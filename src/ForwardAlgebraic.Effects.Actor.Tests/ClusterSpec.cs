@@ -1,12 +1,13 @@
+using Algebraic.Effect.Abstractions;
+using Algebraic.Effect.Actor;
 using AutoFixture.Xunit2;
-using ForwardAlgebraic.Effects.Abstractions;
 using Proto;
 using Proto.Cluster;
 using Proto.Cluster.Partition;
 using Proto.Cluster.Testing;
 using Proto.Remote.GrpcNet;
 
-namespace ForwardAlgebraic.Effects.Actor.Tests;
+namespace Algebraic.Effect.Actor.Tests;
 
 public class ClusterSpec
 {
@@ -43,6 +44,6 @@ public class ClusterSpec
     }
     public readonly record struct RT(in Cluster It,
                                      CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT>, Has<Cluster>;
+        : HasEffectCancel<RT>, Has<RT, Cluster>;
 
 }

@@ -1,11 +1,11 @@
-using ForwardAlgebraic.Effects.Abstractions;
+using Algebraic.Effect.Abstractions;
 using LanguageExt;
 using LanguageExt.Effects.Traits;
 
-namespace ForwardAlgebraic.Effects.Time;
+namespace Algebraic.Effect.Time;
 
-public static class Time<RT> where RT : struct, HasCancel<RT>, Has<DateTime>
+
+public interface Time<RT> where RT : struct, HasCancel<RT>, Has<RT, DateTime>
 {
     public static Eff<RT, DateTime> NowEff => Has<RT, DateTime>.Eff;
-        
 }

@@ -1,23 +1,25 @@
+ 
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ForwardAlgebraic.Effects.Abstractions;
+using Algebraic.Effect.Abstractions;
+using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 
-namespace ForwardAlgebraic.Effects.Http.Tests;
+namespace Algebraic.Effect.Http.Tests;
 
-record DataContext(string Hello);
+internal record DataContext(string Hello);
 
-record HeadersContext
+internal record HeadersContext
 {
     [JsonExtensionData]
     public Dictionary<string, JsonElement> Extensions { get; init; } = new();
 }
 
-record PostmanResponse
+internal record PostmanResponse
 (
     DataContext Data,
     HeadersContext Headers
@@ -25,8 +27,6 @@ record PostmanResponse
 
 public class PostSpec
 {
-    
-
     [Fact]
     public async Task Test1()
     {
@@ -67,9 +67,9 @@ public class PostSpec
                                        Hello = "World"
                                    }));
 
-        
+
         var host = Host.CreateDefaultBuilder()
-                       .ConfigureServices((ctx, services) => 
+                       .ConfigureServices((ctx, services) =>
                             services.AddHttpClient("stub", c => c.BaseAddress = new Uri(server.Url)))
                        .Build();
 
@@ -81,16 +81,31 @@ public class PostSpec
                     Hello = "World"
                 })
                 select _2;
+        {
+            using var cts = new CancellationTokenSource();
+            using var http = host.Services.GetRequiredService<IHttpClientFactory>().CreateClient("stub");
+            using var flurl = new FlurlClient(http);
 
-        using var cts = new CancellationTokenSource();
-        using var http = host.Services.GetRequiredService<IHttpClientFactory>().CreateClient("stub");
-        var r = await q.Run(new(http, cts));
+            
 
-        Assert.True(r.ThrowIfFail() is { Hello: "World" });
+            var r = await q.Run(new(http, cts));
+
+            Assert.True(r.ThrowIfFail() is { Hello: "World" });
+        }
+
+        {
+            using var cts = new CancellationTokenSource();
+            using var http = host.Services.GetRequiredService<IHttpClientFactory>().CreateClient("stub");
+            using var flurl = new FlurlClient(http);
+            var r = await q.Run(new(http, cts));
+
+            Assert.True(r.ThrowIfFail() is { Hello: "World" });
+        }
+
     }
 
     public readonly record struct RT(HttpClient It,
                                      CancellationTokenSource CancellationTokenSource) :
         HasEffectCancel<RT>,
-        Has<HttpClient>;
+        Has<RT, HttpClient>;
 }

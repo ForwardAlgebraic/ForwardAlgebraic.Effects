@@ -1,7 +1,7 @@
-using ForwardAlgebraic.Effects.Abstractions;
+using Algebraic.Effect.Abstractions;
 using Proto;
 
-namespace ForwardAlgebraic.Effects.Actor.Tests;
+namespace Algebraic.Effect.Actor.Tests;
 
 public class ActorSpec
 {
@@ -106,12 +106,12 @@ public class ActorSpec
 
     public readonly record struct RT1(in ISenderContext It,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT1>, Has<ISenderContext>;
+        : HasEffectCancel<RT1>, Has<RT1, ISenderContext>;
 
     public readonly record struct RT2(in IContext It,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT2>, Has<IContext>, Has<ISenderContext>
+        : HasEffectCancel<RT2>, Has<RT2, IContext>, Has<RT2, ISenderContext>, Actor<RT2>
     {
-        ISenderContext Has<ISenderContext>.It => It;
+        ISenderContext Has<RT2, ISenderContext>.It => It;
     }
 }

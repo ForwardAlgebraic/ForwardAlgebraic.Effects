@@ -1,12 +1,8 @@
+using Algebraic.Effect.Abstractions;
 using AutoFixture.Xunit2;
-using ForwardAlgebraic.Effects.Abstractions;
-using LanguageExt;
-using LanguageExt.UnitsOfMeasure;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.CodeCoverage;
 
-namespace ForwardAlgebraic.Effects.Time.Tests;
+namespace Algebraic.Effect.Time.Tests;
 
 public class TimeSpec
 {
@@ -35,13 +31,13 @@ public class TimeSpec
         Assert.Equal(now, r.ThrowIfFail());
 
         await host.StopAsync();
-        
+
     }
 
 
     public readonly record struct RT(DateTime It, CancellationTokenSource CancellationTokenSource) :
         HasEffectCancel<RT>,
-        Has<DateTime>
+        Has<RT, DateTime>
     {
     }
 }
