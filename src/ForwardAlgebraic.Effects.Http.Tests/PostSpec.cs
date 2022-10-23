@@ -35,9 +35,10 @@ public class PostSpec
             BaseAddress = new Uri("https://postman-echo.com/")
         };
 
-        var q = from _1 in Http<RT>.AddHeaderEff("a", "b")
-                from _2 in Http<RT>.AddHeaderEff("a", "c")
-                from _3 in Http<RT>.PostAff<PostmanResponse>("post", new
+        var q = from http in Has<RT, HttpClient>.Eff
+                from _1 in http.EffAddHeader("a", "b")
+                from _2 in http.EffAddHeader("a", "c")
+                from _3 in http.AffPost<PostmanResponse>("post", new
                 {
                     Hello = "World"
                 })
@@ -75,8 +76,9 @@ public class PostSpec
 
         await host.StartAsync();
 
-        var q = from _1 in Http<RT>.AddHeaderEff("a", "b")
-                from _2 in Http<RT>.PostAff<TestResponse>("post", new
+        var q = from http in Has<RT, HttpClient>.Eff
+                from _1 in http.EffAddHeader("a", "b")
+                from _2 in http.AffPost<TestResponse>("post", new
                 {
                     Hello = "World"
                 })

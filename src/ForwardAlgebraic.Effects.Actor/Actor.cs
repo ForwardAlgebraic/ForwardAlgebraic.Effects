@@ -5,29 +5,37 @@ using Proto;
 
 namespace Algebraic.Effect.Actor;
 
-public interface Actor<RT> where RT : struct, HasCancel<RT>, Has<RT, IContext>
+public static class ActorExtensions
 {
-    public static Eff<RT, Unit> RespondEff(object msg) =>
-        from actor in Has<RT, IContext>.Eff
-        from _ in Eff(fun(() => actor.Respond(msg)))
-        select unit;
+    public static Eff<Unit> EffRespond(this IContext actor, object msg) =>
+        Eff(fun(() => actor.Respond(msg)));
 
-    public static Aff<RT, Unit> HandlerAff<T>(Func<T, Aff<RT, Unit>> handleAff) =>
-        from actor in Has<RT, IContext>.Eff
-        let m = actor.Message
-        from _ in m switch
+    public static Aff<Unit> AffHandler<RT, T>(this IContext actor, Func<T, Aff<RT, Unit>> handleAff) 
+        where RT : struct, HasCancel<RT> =>
+            from __ in unitEff
+            let msg = actor.Message
+            from _1 in msg switch
+            {
+                T a => handleAff(a),
+                _ => unitEff
+            }
+            select unit;
+
+    public static Aff<R> AffHandler<T, R>(this IContext actor, Func<T, Aff<R>> handleAff) =>
+        from __ in unitEff
+        let msg = actor.Message
+        from _1 in msg switch
         {
             T a => handleAff(a),
-            _ => unitEff
+            _ => Eff(() => default(R)!)
         }
-        select unit;
+        select _1;
 
-    public static Aff<RT, Unit> SetTimeoutAff(TimeSpan timeout) =>
-        from actor in Has<RT, IContext>.Eff
-        from _1 in HandlerAff<Started>(m =>
+    public static Aff<Unit> AffSetTimeout(this IContext actor, TimeSpan timeout) =>
+        from _1 in actor.AffHandler<Started>(m =>
             Eff(fun(() => actor.SetReceiveTimeout(timeout)))
         )
-        from _2 in HandlerAff<ReceiveTimeout>(m =>
+        from _2 in actor.AffHandler<ReceiveTimeout>(m =>
             Eff(fun(() => actor.Poison(actor.Self)))
         )
         select unit;

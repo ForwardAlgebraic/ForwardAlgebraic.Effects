@@ -6,7 +6,7 @@ using static LanguageExt.Prelude;
 namespace Algebraic.Effect.Abstractions;
 
 [Typeclass("*")]
-public interface Has<RT, T> where RT : struct, Has<RT, T>
+public interface Has<RT, T> : HasCancel<RT> where RT : struct, Has<RT, T>
 {
     T It { get; }
 

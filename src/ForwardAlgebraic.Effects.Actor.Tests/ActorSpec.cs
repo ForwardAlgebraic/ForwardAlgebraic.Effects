@@ -49,12 +49,14 @@ public class ActorSpec
             _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
-                from __ in unitAff
+                from actor in Has<RT2, IContext>.Eff
                 from _1 in Sender<RT2>.SendEff(PID.FromAddress(ActorSystem.NoHost, "1"), "1")
-                from _2 in Actor<RT2>.HandlerAff<string>(static m =>
-                    Actor<RT2>.RespondEff(m == "success")
+                from _2 in actor.AffHandler<RT2, string>(static m =>
+                    from actor in Has<RT2, IContext>.Eff
+                    from _1 in actor.EffRespond(m == "success")
+                    select unit
                 )
-                from _3 in Actor<RT2>.HandlerAff<int>(static m =>
+                from _3 in actor.AffHandler<RT2, int>(static m =>
                     Actor<RT2>.RespondEff(m == 1)
                 )
                 select unit;
@@ -110,7 +112,7 @@ public class ActorSpec
 
     public readonly record struct RT2(in IContext It,
                                       CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT2>, Has<RT2, IContext>, Has<RT2, ISenderContext>, Actor<RT2>
+        : HasEffectCancel<RT2>, Has<RT2, IContext>, Has<RT2, ISenderContext>
     {
         ISenderContext Has<RT2, ISenderContext>.It => It;
     }
