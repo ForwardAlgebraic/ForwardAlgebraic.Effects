@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2022-10-23_15-10-26" tag="58_3307551997">
+  <assembly name="Algebraic.Effect.Abstractions">
+    <class name="Algebraic.Effect.Abstractions.IHas`2" coveredlines="1" coverablelines="1" totallines="14" coveredbranches="2" totalbranches="2" coveredcodeelements="1" totalcodeelements="1" />
+    <class name="Algebraic.Effect.Abstractions.IHasEffectCancel`1" coveredlines="1" coverablelines="2" totallines="12" coveredbranches="0" totalbranches="0" coveredcodeelements="1" totalcodeelements="2" />
+    <class name="System.Reactive.AnonymousObserver`1" coveredlines="0" coverablelines="14" totallines="65" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="8" />
+    <class name="System.Reactive.Linq.ObservableExtensions" coveredlines="0" coverablelines="51" totallines="126" coveredbranches="0" totalbranches="22" coveredcodeelements="0" totalcodeelements="9" />
+  </assembly>
+  <assembly name="Algebraic.Effect.Actor">
+    <class name="Algebraic.Effect.Actor.IActor`1" coveredlines="27" coverablelines="27" totallines="46" coveredbranches="24" totalbranches="24" coveredcodeelements="4" totalcodeelements="4" />
+    <class name="Algebraic.Effect.Actor.ICluster`1" coveredlines="5" coverablelines="5" totallines="20" coveredbranches="6" totalbranches="6" coveredcodeelements="2" totalcodeelements="2" />
+    <class name="Algebraic.Effect.Actor.ISender`1" coveredlines="7" coverablelines="7" totallines="20" coveredbranches="8" totalbranches="8" coveredcodeelements="2" totalcodeelements="2" />
+  </assembly>
+  <assembly name="Algebraic.Effect.Http">
+    <class name="Algebraic.Effect.Http.IHttp`1" coveredlines="16" coverablelines="20" totallines="42" coveredbranches="10" totalbranches="16" coveredcodeelements="5" totalcodeelements="6" />
+    <class name="Algebraic.Effect.Http.IHttpContext`1" coveredlines="0" coverablelines="11" totallines="29" coveredbranches="0" totalbranches="10" coveredcodeelements="0" totalcodeelements="4" />
+  </assembly>
+  <assembly name="Algebraic.Effect.Time">
+    <class name="Algebraic.Effect.Time.Time`1" coveredlines="1" coverablelines="1" totallines="11" coveredbranches="0" totalbranches="0" coveredcodeelements="1" totalcodeelements="1" />
+  </assembly>
+</coverage>
