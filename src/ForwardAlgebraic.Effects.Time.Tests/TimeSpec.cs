@@ -36,8 +36,8 @@ public class TimeSpec
 
 
     public readonly record struct RT(DateTime It, CancellationTokenSource CancellationTokenSource) :
-        HasEffectCancel<RT>,
-        Has<RT, DateTime>
+        IHasEffectCancel<RT>,
+        IHas<RT, DateTime>
     {
     }
 }

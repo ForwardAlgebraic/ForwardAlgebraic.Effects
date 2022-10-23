@@ -6,16 +6,16 @@ using Proto.Cluster;
 
 namespace Algebraic.Effect.Actor;
 
-public interface IActor<RT> : Has<RT, IContext>, ISender<RT>, ICluster<RT>
-    where RT : struct, HasCancel<RT>, Has<RT, IContext>, Has<RT, ISenderContext>, Has<RT, Cluster>
+public interface IActor<RT> : IHas<RT, IContext>, ISender<RT>, ICluster<RT>
+    where RT : struct, HasCancel<RT>, IHas<RT, IContext>, IHas<RT, ISenderContext>, IHas<RT, Cluster>
 {
     public static Eff<RT, Unit> RespondEff(object msg) =>
-        from actor in Has<RT, IContext>.Eff
+        from actor in IHas<RT, IContext>.Eff
         from _ in Eff(fun(() => actor.Respond(msg)))
         select unit;
 
     public static Aff<RT, Unit> HandlerAff<T>(Func<T, Aff<RT, Unit>> handleAff) =>
-        from actor in Has<RT, IContext>.Eff
+        from actor in IHas<RT, IContext>.Eff
         let m = actor.Message
         from _ in m switch
         {
@@ -25,7 +25,7 @@ public interface IActor<RT> : Has<RT, IContext>, ISender<RT>, ICluster<RT>
         select unit;
 
     public static Eff<RT, Unit> HandlerEff<T>(Func<T, Eff<RT, Unit>> handleEff) =>
-        from actor in Has<RT, IContext>.Eff
+        from actor in IHas<RT, IContext>.Eff
         let m = actor.Message
         from _ in m switch
         {
@@ -35,7 +35,7 @@ public interface IActor<RT> : Has<RT, IContext>, ISender<RT>, ICluster<RT>
         select unit;
 
     public static Eff<RT, Unit> SetPoisonSelfEff(TimeSpan timeout) =>
-        from actor in Has<RT, IContext>.Eff
+        from actor in IHas<RT, IContext>.Eff
         from _1 in HandlerEff<Started>(m =>
             Eff(fun(() => actor.SetReceiveTimeout(timeout)))
         )

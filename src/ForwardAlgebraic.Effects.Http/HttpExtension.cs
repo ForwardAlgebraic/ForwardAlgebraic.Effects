@@ -7,8 +7,8 @@ using static LanguageExt.Prelude;
 
 namespace Algebraic.Effect.Http;
 
-public interface IHttp<RT> : Has<RT, HttpClient>
-    where RT : struct, Has<RT, HttpClient>
+public interface IHttp<RT> : IHas<RT, HttpClient>
+    where RT : struct, IHas<RT, HttpClient>
 {
     public static JsonSerializerOptions JsonSerializerOptions { get; } = new()
     {
@@ -23,18 +23,18 @@ public interface IHttp<RT> : Has<RT, HttpClient>
         select _1;
 
     public static Eff<RT, Unit> AddHeaderEff(string name, string? value) =>
-        from http in Has<RT, HttpClient>.Eff
+        from http in IHas<RT, HttpClient>.Eff
         from _1 in Eff(fun(() => http.DefaultRequestHeaders.Add(name, value)))
         select unit;
 
     public static Aff<RT, R> PostAff<R>(string requestUri, object jsonBody) =>
-        from http in Has<RT, HttpClient>.Eff
+        from http in IHas<RT, HttpClient>.Eff
         from _1 in Aff(() => http.PostAsync(requestUri, JsonContent.Create(jsonBody)).ToValue())
         from _2 in DeserialJsonAff<R>(_1)
         select _2;
 
     public static Aff<RT, R> GetAff<R>(string requestUri) =>
-        from http in Has<RT, HttpClient>.Eff
+        from http in IHas<RT, HttpClient>.Eff
         from _1 in Aff(() => http.GetAsync(requestUri).ToValue())
         from _2 in DeserialJsonAff<R>(_1)
         select _2;

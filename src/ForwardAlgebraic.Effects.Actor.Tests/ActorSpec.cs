@@ -2,6 +2,8 @@ using Algebraic.Effect.Abstractions;
 using LanguageExt.Pipes;
 using Proto;
 using Proto.Cluster;
+using actor = Algebraic.Effect.Actor.IActor<Algebraic.Effect.Actor.Tests.ActorSpec.RT2>;
+using sender = Algebraic.Effect.Actor.ISender<Algebraic.Effect.Actor.Tests.ActorSpec.RT1>;
 
 
 namespace Algebraic.Effect.Actor.Tests;
@@ -18,7 +20,7 @@ public class ActorSpec
 
         var pid = system.Root.Spawn(Props.FromFunc(async ctx =>
         {
-            var q = IActor<RT2>.SetPoisonSelfEff(3 * sec);
+            var q = actor.SetPoisonSelfEff(3 * sec);
             var r = q.Run(new(ctx, cts));
             _ = r.ThrowIfFail();
             await Task.CompletedTask;
@@ -47,12 +49,12 @@ public class ActorSpec
             _ = r.ThrowIfFail();
 
             static Aff<RT2, Unit> Business() =>
-                from _1 in IActor<RT2>.SendEff(PID.FromAddress(ActorSystem.NoHost, "1"), "1")
-                from _2 in IActor<RT2>.HandlerAff<string>(static m =>
-                    IActor<RT2>.RespondEff(m == "success")
+                from _1 in actor.SendEff(PID.FromAddress(ActorSystem.NoHost, "1"), "1")
+                from _2 in actor.HandlerAff<string>(static m =>
+                    actor.RespondEff(m == "success")
                 )
-                from _3 in IActor<RT2>.HandlerAff<int>(static m =>
-                    IActor<RT2>.RespondEff(m == 1)
+                from _3 in actor.HandlerAff<int>(static m =>
+                    actor.RespondEff(m == 1)
                 )
                 select unit;
         });
@@ -60,8 +62,8 @@ public class ActorSpec
         var pid = system.Root.Spawn(props);
 
         var q =
-            from _1 in ISender<RT1>.RequestAff<bool>(pid, "success")
-            from _2 in ISender<RT1>.RequestAff<bool>(pid, 1)
+            from _1 in sender.RequestAff<bool>(pid, "success")
+            from _2 in sender.RequestAff<bool>(pid, 1)
             select _1 && _2;
 
         using var cts = new CancellationTokenSource();
@@ -89,7 +91,7 @@ public class ActorSpec
 
         var pid = system.Root.Spawn(props);
 
-        var q = ISender<RT1>.SendEff(pid, "success");
+        var q = sender.SendEff(pid, "success");
         using var cts = new CancellationTokenSource();
 
         var r = q.Run(new(system.Root, cts));
@@ -102,15 +104,19 @@ public class ActorSpec
     }
 
     public readonly record struct RT1(in ISenderContext It,
-                                      CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT1>, Has<RT1, ISenderContext>;
+                                      CancellationTokenSource CancellationTokenSource) :
+        IHasEffectCancel<RT1>,
+        IHas<RT1, ISenderContext>;
 
     public readonly record struct RT2(in IContext It,
-                                      CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT2>, IActor<RT2>
+                                      CancellationTokenSource CancellationTokenSource) :
+        IHasEffectCancel<RT2>,
+        IHas<RT2, IContext>,
+        IHas<RT2, ISenderContext>,
+        IHas<RT2, Cluster>
     {
-        ISenderContext Has<RT2, ISenderContext>.It => It;
+        ISenderContext IHas<RT2, ISenderContext>.It => It;
 
-        Cluster Has<RT2, Cluster>.It => It.Cluster();
+        Cluster IHas<RT2, Cluster>.It => It.Cluster();
     }
 }

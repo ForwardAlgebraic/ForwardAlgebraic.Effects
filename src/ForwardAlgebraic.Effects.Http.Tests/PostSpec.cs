@@ -106,6 +106,6 @@ public class PostSpec
 
     public readonly record struct RT(HttpClient It,
                                      CancellationTokenSource CancellationTokenSource) :
-        HasEffectCancel<RT>,
-        Has<RT, HttpClient>;
+        IHasEffectCancel<RT>,
+        IHas<RT, HttpClient>;
 }

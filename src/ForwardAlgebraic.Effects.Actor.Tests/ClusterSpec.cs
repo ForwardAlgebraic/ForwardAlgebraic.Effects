@@ -43,6 +43,6 @@ public class ClusterSpec
 
     public readonly record struct RT(in Cluster It,
                                      CancellationTokenSource CancellationTokenSource)
-        : HasEffectCancel<RT>, Has<RT, Cluster>;
+        : IHasEffectCancel<RT>, IHas<RT, Cluster>;
 
 }

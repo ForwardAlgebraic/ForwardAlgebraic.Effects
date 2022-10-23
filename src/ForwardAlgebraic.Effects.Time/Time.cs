@@ -5,7 +5,7 @@ using LanguageExt.Effects.Traits;
 namespace Algebraic.Effect.Time;
 
 
-public interface Time<RT> where RT : struct, HasCancel<RT>, Has<RT, DateTime>
+public interface Time<RT> where RT : struct, HasCancel<RT>, IHas<RT, DateTime>
 {
-    public static Eff<RT, DateTime> NowEff => Has<RT, DateTime>.Eff;
+    public static Eff<RT, DateTime> NowEff => IHas<RT, DateTime>.Eff;
 }
