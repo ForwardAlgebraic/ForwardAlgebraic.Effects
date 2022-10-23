@@ -8,7 +8,7 @@ namespace Algebraic.Effect.Abstractions;
 [Typeclass("*")]
 public interface Has<RT, T> : HasCancel<RT> where RT : struct, Has<RT, T>
 {
-    T It { get; }
+    protected T It { get; }
 
     static Eff<RT, T> Eff => EffMaybe<RT, T>(static rt => rt.It);
 }
