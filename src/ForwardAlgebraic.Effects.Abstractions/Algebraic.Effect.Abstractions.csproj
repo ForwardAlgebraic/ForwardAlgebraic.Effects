@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.3.2-beta" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="RxFree" Version="1.1.2">
       <PrivateAssets>all</PrivateAssets>
